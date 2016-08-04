@@ -19,7 +19,7 @@ public class Character extends Pane{
     int width = 16;                                         //размер кадра
     int height = 16;
     public SpriteAnimation animation;
-    public Point2D playerVelocity = new Point2D(0,0);
+    public Point2D playerVelocity = new Point2D(0,0);       //точка учета перемещени€ ћарио по Y (гравитаци€)
     private boolean canJump = true;                         //можно ли пригать
 
     public Character(){                                     //конструктор ћарио
