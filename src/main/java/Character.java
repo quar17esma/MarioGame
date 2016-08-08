@@ -8,42 +8,42 @@ import javafx.util.Duration;
 
 
 public class Character extends Pane{
-    Image marioImg = new Image(getClass().getResourceAsStream("mario.png"));  //Картинка Марио
+    Image marioImg = new Image(getClass().getResourceAsStream("mario.png"));  //РљР°СЂС‚РёРЅРєР° РњР°СЂРёРѕ
     ImageView imageView = new ImageView(marioImg);
 
-    int count = 3;                                          //кол-во кадров
-    int columns = 3;                                        //кол-во колонок(верх, низ, право, лево)
+    int count = 3;                                          //РєРѕР»-РІРѕ РєР°РґСЂРѕРІ
+    int columns = 3;                                        //РєРѕР»-РІРѕ РєРѕР»РѕРЅРѕРє(РІРµСЂС…, РЅРёР·, РїСЂР°РІРѕ, Р»РµРІРѕ)
 
-    int offsetX = 96;                                       //координаты первого кадра
+    int offsetX = 96;                                       //РєРѕРѕСЂРґРёРЅР°С‚С‹ РїРµСЂРІРѕРіРѕ РєР°РґСЂР°
     int offsetY = 33;
-    int width = 16;                                         //размер кадра
+    int width = 16;                                         //СЂР°Р·РјРµСЂ РєР°РґСЂР°
     int height = 16;
     public SpriteAnimation animation;
-    public Point2D playerVelocity = new Point2D(0,0);       //точка учета перемещения Марио по Y (гравитация)
-    private boolean canJump = true;                         //можно ли пригать
+    public Point2D playerVelocity = new Point2D(0,0);       //С‚РѕС‡РєР° СѓС‡РµС‚Р° РїРµСЂРµРјРµС‰РµРЅРёСЏ РњР°СЂРёРѕ РїРѕ Y (РіСЂР°РІРёС‚Р°С†РёСЏ)
+    private boolean canJump = true;                         //РјРѕР¶РЅРѕ Р»Рё РїСЂРёРіР°С‚СЊ
 
-    public Character(){                                     //конструктор Марио
-        imageView.setFitHeight(40);                         //изменяем размер Марио
+    public Character(){                                     //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РњР°СЂРёРѕ
+        imageView.setFitHeight(40);                         //РёР·РјРµРЅСЏРµРј СЂР°Р·РјРµСЂ РњР°СЂРёРѕ
         imageView.setFitWidth(40);
-        imageView.setViewport(new Rectangle2D(offsetX,offsetY,width,height));  //устанавливаем кадр
-                                                                                //создаем анимацию Марио
+        imageView.setViewport(new Rectangle2D(offsetX,offsetY,width,height));  //СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєР°РґСЂ
+                                                                                //СЃРѕР·РґР°РµРј Р°РЅРёРјР°С†РёСЋ РњР°СЂРёРѕ
         animation = new SpriteAnimation(this.imageView,Duration.millis(200),count,columns,offsetX,offsetY,width,height);
-        getChildren().addAll(this.imageView);                                   //связываем картинку с персонажем Марио
+        getChildren().addAll(this.imageView);                                   //СЃРІСЏР·С‹РІР°РµРј РєР°СЂС‚РёРЅРєСѓ СЃ РїРµСЂСЃРѕРЅР°Р¶РµРј РњР°СЂРёРѕ
     }
 
-    //движение по Х
+    //РґРІРёР¶РµРЅРёРµ РїРѕ РҐ
     public void moveX(int value){
-        boolean movingRight = value > 0;                                //вправо при value > 0
+        boolean movingRight = value > 0;                                //РІРїСЂР°РІРѕ РїСЂРё value > 0
 
-        for(int i = 0; i<Math.abs(value); i++) {                        //при каждом смещениии на 1 пиксель
-            for (Node block : Game.blocks) {                            //для каждого блока движение и проверка пересичений
-                if(this.getBoundsInParent().intersects(block.getBoundsInParent())) {    //если наткнулся на блок
-                    if (movingRight) {                                  //при движениии вправо отступ на 1 от блока
+        for(int i = 0; i<Math.abs(value); i++) {                        //РїСЂРё РєР°Р¶РґРѕРј СЃРјРµС‰РµРЅРёРёРё РЅР° 1 РїРёРєСЃРµР»СЊ
+            for (Node block : Game.blocks) {                            //РґР»СЏ РєР°Р¶РґРѕРіРѕ Р±Р»РѕРєР° РґРІРёР¶РµРЅРёРµ Рё РїСЂРѕРІРµСЂРєР° РїРµСЂРµСЃРёС‡РµРЅРёР№
+                if(this.getBoundsInParent().intersects(block.getBoundsInParent())) {    //РµСЃР»Рё РЅР°С‚РєРЅСѓР»СЃСЏ РЅР° Р±Р»РѕРє
+                    if (movingRight) {                                  //РїСЂРё РґРІРёР¶РµРЅРёРёРё РІРїСЂР°РІРѕ РѕС‚СЃС‚СѓРї РЅР° 1 РѕС‚ Р±Р»РѕРєР°
                         if (this.getTranslateX() + Game.MARIO_SIZE == block.getTranslateX()){
                             this.setTranslateX(this.getTranslateX() - 1);
                             return;
                         }
-                    } else {                                            //при движениии вправо отступ на 1 от блока
+                    } else {                                            //РїСЂРё РґРІРёР¶РµРЅРёРёРё РІРїСЂР°РІРѕ РѕС‚СЃС‚СѓРї РЅР° 1 РѕС‚ Р±Р»РѕРєР°
                         if (this.getTranslateX() == block.getTranslateX() + Game.BLOCK_SIZE) {
                             this.setTranslateX(this.getTranslateX() + 1);
                             return;
@@ -51,36 +51,36 @@ public class Character extends Pane{
                     }
                 }
             }
-            this.setTranslateX(this.getTranslateX() + (movingRight ? 1 : -1));      //передвижение вправо или влево на 1
+            this.setTranslateX(this.getTranslateX() + (movingRight ? 1 : -1));      //РїРµСЂРµРґРІРёР¶РµРЅРёРµ РІРїСЂР°РІРѕ РёР»Рё РІР»РµРІРѕ РЅР° 1
         }
     }
 
-    //движение по Y
+    //РґРІРёР¶РµРЅРёРµ РїРѕ Y
     public void moveY(int value){
-        boolean movingDown = value > 0;                     //вниз при value > 0
+        boolean movingDown = value > 0;                     //РІРЅРёР· РїСЂРё value > 0
 
-        for(int i = 0; i < Math.abs(value); i++){           //при каждом смещении на 1 пикс.
-            for(Block platform : Game.blocks){              //для каждого блока
-                if(getBoundsInParent().intersects(platform.getBoundsInParent())){ //при сталкновении с блоком
-                    if(movingDown){                 //при движении вниз
-                        if(this.getTranslateY()+ Game.MARIO_SIZE == platform.getTranslateY()){ //если упали на блок
-                            this.setTranslateY(this.getTranslateY()-1);                        //подимаем Марио на 1
-                            canJump = true;                                                    //можем прыгать
+        for(int i = 0; i < Math.abs(value); i++){           //РїСЂРё РєР°Р¶РґРѕРј СЃРјРµС‰РµРЅРёРё РЅР° 1 РїРёРєСЃ.
+            for(Block platform : Game.blocks){              //РґР»СЏ РєР°Р¶РґРѕРіРѕ Р±Р»РѕРєР°
+                if(getBoundsInParent().intersects(platform.getBoundsInParent())){ //РїСЂРё СЃС‚Р°Р»РєРЅРѕРІРµРЅРёРё СЃ Р±Р»РѕРєРѕРј
+                    if(movingDown){                 //РїСЂРё РґРІРёР¶РµРЅРёРё РІРЅРёР·
+                        if(this.getTranslateY()+ Game.MARIO_SIZE == platform.getTranslateY()){ //РµСЃР»Рё СѓРїР°Р»Рё РЅР° Р±Р»РѕРє
+                            this.setTranslateY(this.getTranslateY()-1);                        //РїРѕРґРёРјР°РµРј РњР°СЂРёРѕ РЅР° 1
+                            canJump = true;                                                    //РјРѕР¶РµРј РїСЂС‹РіР°С‚СЊ
                             return;
                         }
-                    } else {                         //при движении вверх
-                        if(this.getTranslateY() == platform.getTranslateY()+ Game.BLOCK_SIZE){  //если уперлись головой
-                            this.setTranslateY(this.getTranslateY()+1);                         //отступаем на 1 вниз
-                            playerVelocity = new Point2D(0,10);                                 //отталкиваемя вниз на 10 пикс.
+                    } else {                         //РїСЂРё РґРІРёР¶РµРЅРёРё РІРІРµСЂС…
+                        if(this.getTranslateY() == platform.getTranslateY()+ Game.BLOCK_SIZE){  //РµСЃР»Рё СѓРїРµСЂР»РёСЃСЊ РіРѕР»РѕРІРѕР№
+                            this.setTranslateY(this.getTranslateY()+1);                         //РѕС‚СЃС‚СѓРїР°РµРј РЅР° 1 РІРЅРёР·
+                            playerVelocity = new Point2D(0,10);                                 //РѕС‚С‚Р°Р»РєРёРІР°РµРјСЏ РІРЅРёР· РЅР° 10 РїРёРєСЃ.
                             return;
                         }
                     }
                 }
             }
 
-            this.setTranslateY(this.getTranslateY() + (movingDown?1:-1));       //перемещение вниз или вверх на 1 пиксель
+            this.setTranslateY(this.getTranslateY() + (movingDown?1:-1));       //РїРµСЂРµРјРµС‰РµРЅРёРµ РІРЅРёР· РёР»Рё РІРІРµСЂС… РЅР° 1 РїРёРєСЃРµР»СЊ
 
-            if(this.getTranslateY()>640){            //при падении в пропасть возвращаемся в начало
+            if(this.getTranslateY()>640){            //РїСЂРё РїР°РґРµРЅРёРё РІ РїСЂРѕРїР°СЃС‚СЊ РІРѕР·РІСЂР°С‰Р°РµРјСЃСЏ РІ РЅР°С‡Р°Р»Рѕ
                 this.setTranslateX(0);
                 this.setTranslateY(400);
                 Game.gameRoot.setLayoutX(0);
@@ -88,11 +88,11 @@ public class Character extends Pane{
         }
     }
 
-    //прыжок
+    //РїСЂС‹Р¶РѕРє
     public void jumpPlayer(){
-        if(canJump){                                        //если можем прыгать
-            playerVelocity = playerVelocity.add(0,-30);     //на 30 пикс. подпрыгиваем вверх
-            canJump = false;                                //в полете не можем прыгать
+        if(canJump){                                        //РµСЃР»Рё РјРѕР¶РµРј РїСЂС‹РіР°С‚СЊ
+            playerVelocity = playerVelocity.add(0,-30);     //РЅР° 30 РїРёРєСЃ. РїРѕРґРїСЂС‹РіРёРІР°РµРј РІРІРµСЂС…
+            canJump = false;                                //РІ РїРѕР»РµС‚Рµ РЅРµ РјРѕР¶РµРј РїСЂС‹РіР°С‚СЊ
         }
     }
 }

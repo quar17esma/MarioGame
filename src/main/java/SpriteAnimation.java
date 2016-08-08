@@ -7,17 +7,17 @@ import javafx.util.Duration;
 
 
 public class SpriteAnimation  extends Transition{
-    private final ImageView imageView;                      //изображение
-    private final int count;                                //кол-во кадров
-    private final int columns;                              //кол-во колонок(верх, низ, право, лево)
+    private final ImageView imageView;                      //РёР·РѕР±СЂР°Р¶РµРЅРёРµ
+    private final int count;                                //РєРѕР»-РІРѕ РєР°РґСЂРѕРІ
+    private final int columns;                              //РєРѕР»-РІРѕ РєРѕР»РѕРЅРѕРє(РІРµСЂС…, РЅРёР·, РїСЂР°РІРѕ, Р»РµРІРѕ)
 
-    private int offsetX;                                    //координаты первого кадра
+    private int offsetX;                                    //РєРѕРѕСЂРґРёРЅР°С‚С‹ РїРµСЂРІРѕРіРѕ РєР°РґСЂР°
     private int offsetY;
 
-    private final int width;                                //размер кадра
+    private final int width;                                //СЂР°Р·РјРµСЂ РєР°РґСЂР°
     private final int height;
 
-    public SpriteAnimation(                                 //конструктор с параметрами и временем
+    public SpriteAnimation(                                 //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё Рё РІСЂРµРјРµРЅРµРј
             ImageView imageView,
             Duration duration,
             int count, int columns,
@@ -31,26 +31,26 @@ public class SpriteAnimation  extends Transition{
         this.offsetY = offsetY;
         this.width = width;
         this.height = height;
-        setCycleDuration(duration);                             //длительность одниго круга кадров
-        setCycleCount(Animation.INDEFINITE);                    //кол-во повторение анимации
-        setInterpolator(Interpolator.LINEAR);                   //скорость ровная
-                                                                //указываем кадр на картинке(расположение и размер)
+        setCycleDuration(duration);                             //РґР»РёС‚РµР»СЊРЅРѕСЃС‚СЊ РѕРґРЅРёРіРѕ РєСЂСѓРіР° РєР°РґСЂРѕРІ
+        setCycleCount(Animation.INDEFINITE);                    //РєРѕР»-РІРѕ РїРѕРІС‚РѕСЂРµРЅРёРµ Р°РЅРёРјР°С†РёРё
+        setInterpolator(Interpolator.LINEAR);                   //СЃРєРѕСЂРѕСЃС‚СЊ СЂРѕРІРЅР°СЏ
+                                                                //СѓРєР°Р·С‹РІР°РµРј РєР°РґСЂ РЅР° РєР°СЂС‚РёРЅРєРµ(СЂР°СЃРїРѕР»РѕР¶РµРЅРёРµ Рё СЂР°Р·РјРµСЂ)
         this.imageView.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
     }
 
     public void setOffsetX(int x){
         this.offsetX = x;
-    }         //смена кадра
+    }         //СЃРјРµРЅР° РєР°РґСЂР°
     public void setOffsetY(int y){
         this.offsetY = y;
-    }         //смена колонки
+    }         //СЃРјРµРЅР° РєРѕР»РѕРЅРєРё
 
 
-    protected void interpolate(double frac) {                   //вызывается при каждом кадре анимации (от 0.00 до 1.00)
+    protected void interpolate(double frac) {                   //РІС‹Р·С‹РІР°РµС‚СЃСЏ РїСЂРё РєР°Р¶РґРѕРј РєР°РґСЂРµ Р°РЅРёРјР°С†РёРё (РѕС‚ 0.00 РґРѕ 1.00)
         final int index = Math.min((int)Math.floor(count*frac), count-1);
-        final int x = (index%columns)*width+offsetX;            //столбец кадра (изменяется с изменением frac)
+        final int x = (index%columns)*width+offsetX;            //СЃС‚РѕР»Р±РµС† РєР°РґСЂР° (РёР·РјРµРЅСЏРµС‚СЃСЏ СЃ РёР·РјРµРЅРµРЅРёРµРј frac)
         //    final int y = (index/columns)*height+offsetY;
-        final int y = offsetY;                                  //колонка кадра, изменяется при нажатии клавиши
-        imageView.setViewport(new Rectangle2D(x, y, width, height));    //смена кадра с новыми координатами
+        final int y = offsetY;                                  //РєРѕР»РѕРЅРєР° РєР°РґСЂР°, РёР·РјРµРЅСЏРµС‚СЃСЏ РїСЂРё РЅР°Р¶Р°С‚РёРё РєР»Р°РІРёС€Рё
+        imageView.setViewport(new Rectangle2D(x, y, width, height));    //СЃРјРµРЅР° РєР°РґСЂР° СЃ РЅРѕРІС‹РјРё РєРѕРѕСЂРґРёРЅР°С‚Р°РјРё
     }
 }

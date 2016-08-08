@@ -3,26 +3,26 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-//класс возможных обьектов(блоков) на уровне
+//РєР»Р°СЃСЃ РІРѕР·РјРѕР¶РЅС‹С… РѕР±СЊРµРєС‚РѕРІ(Р±Р»РѕРєРѕРІ) РЅР° СѓСЂРѕРІРЅРµ
 public class Block extends Pane {
-                                                                    //общее изображение
+                                                                    //РѕР±С‰РµРµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ
     Image blocksImg = new Image(getClass().getResourceAsStream("platforms.png"));
-    ImageView block;                                                //блок
+    ImageView block;                                                //Р±Р»РѕРє
 
-    public enum BlockType {                                         //возможные блоки
+    public enum BlockType {                                         //РІРѕР·РјРѕР¶РЅС‹Рµ Р±Р»РѕРєРё
         PLATFORM, BRICK, BONUS, PIPE_TOP, PIPE_BOTTOM, INVISIBLE_BLOCK, STONE
     }
 
-    public Block(BlockType blockType, int x, int y) {               //конструктор блока
+    public Block(BlockType blockType, int x, int y) {               //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±Р»РѕРєР°
         block = new ImageView(blocksImg);
 
-        block.setFitWidth(Game.BLOCK_SIZE);                         //размер блока
+        block.setFitWidth(Game.BLOCK_SIZE);                         //СЂР°Р·РјРµСЂ Р±Р»РѕРєР°
         block.setFitHeight(Game.BLOCK_SIZE);
 
-        setTranslateX(x);                                           //координаты блока
+        setTranslateX(x);                                           //РєРѕРѕСЂРґРёРЅР°С‚С‹ Р±Р»РѕРєР°
         setTranslateY(y);
 
-        switch (blockType) {                                        //изображение блока в зависимости от типа
+        switch (blockType) {                                        //РёР·РѕР±СЂР°Р¶РµРЅРёРµ Р±Р»РѕРєР° РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ С‚РёРїР°
             case PLATFORM:
                 block.setViewport(new Rectangle2D(0, 0, 16, 16));
                 break;
@@ -34,11 +34,11 @@ public class Block extends Pane {
                 break;
             case PIPE_TOP:
                 block.setViewport(new Rectangle2D(0, 128, 32, 16));
-                block.setFitWidth(Game.BLOCK_SIZE * 2);     //двойная ширина для трубы
+                block.setFitWidth(Game.BLOCK_SIZE * 2);     //РґРІРѕР№РЅР°СЏ С€РёСЂРёРЅР° РґР»СЏ С‚СЂСѓР±С‹
                 break;
             case PIPE_BOTTOM:
                 block.setViewport(new Rectangle2D(0, 145, 32, 14));
-                block.setFitWidth(Game.BLOCK_SIZE * 2);     //двойная ширина для трубы
+                block.setFitWidth(Game.BLOCK_SIZE * 2);     //РґРІРѕР№РЅР°СЏ С€РёСЂРёРЅР° РґР»СЏ С‚СЂСѓР±С‹
                 break;
             case INVISIBLE_BLOCK:
                 block.setViewport(new Rectangle2D(0, 0, 16, 16));
@@ -48,7 +48,7 @@ public class Block extends Pane {
                 block.setViewport(new Rectangle2D(0, 16, 16, 16));
                 break;
         }
-                                                                    //добавляем блок на уровень
+                                                                    //РґРѕР±Р°РІР»СЏРµРј Р±Р»РѕРє РЅР° СѓСЂРѕРІРµРЅСЊ
         getChildren().add(block);
         Game.blocks.add(this);
         Game.gameRoot.getChildren().add(this);
